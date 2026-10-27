@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信单会话导出（新版）"
+  short_description: "先列本机聊天供选择，分两次确认后导出单个会话到指定目录"
+  default_prompt: "使用 $wechat-export-fresh。先征得我同意读取本机聊天列表并展示出来，让我选定一个私聊或群聊，再问保存目录；单独确认导出后仅导出这一会话。"

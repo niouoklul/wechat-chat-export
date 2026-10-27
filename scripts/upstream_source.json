@@ -1,0 +1,9 @@
+{
+  "project": "zhuzhangxue/wechat-chat-export",
+  "commit": "2c49469a91e2f3b0c73a581e15a8ad2db25b7923",
+  "version": "1.4.0",
+  "sha256": {
+    "exporter_core.py": "768d906539d740ca31e2a19b2e25ff75e4c295d3295e82c8f915a9892eb3ac1e",
+    "wechat_data_dirs.py": "39a733345b3ad8f57988d4d9426c8270ed6c8ed3c58691f0523dd22e89a3926c"
+  }
+}
