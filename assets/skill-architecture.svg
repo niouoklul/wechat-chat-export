@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="835" viewBox="0 0 1320 835" role="img" aria-labelledby="title description">
+  <title id="title">wechat-export-fresh Skill 架构</title>
+  <desc id="description">三阶段流程：用户一句话安装，Skill 入口配置依赖并自检；用户确认后列出本机会话元数据；选择一个会话并再次确认后导出到指定目录。微信进程和数据库只在本机读取，聊天正文不上传。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#607794" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <style>
+      text { font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; }
+      .h1 { font-size: 32px; font-weight: 700; fill: #15283d; }
+      .sub { font-size: 17px; fill: #536981; }
+      .phase { font-size: 17px; font-weight: 700; fill: #536981; letter-spacing: 1px; }
+      .name { font-size: 23px; font-weight: 700; fill: #16324a; }
+      .line { font-size: 17px; fill: #355069; }
+      .minor { font-size: 15px; fill: #597087; }
+      .foot { font-size: 16px; fill: #39536b; }
+    </style>
+  </defs>
+  <rect width="1320" height="835" fill="#f5f8fc"/>
+  <rect x="28" y="26" width="1264" height="781" rx="26" fill="#ffffff" stroke="#e1e9f1"/>
+  <text x="58" y="80" class="h1">wechat-export-fresh · Skill 工作框架</text>
+  <text x="58" y="112" class="sub">一句话安装 → 分别确认读取列表与导出 → 只把选定会话保存到本机目录</text>
+  <line x1="58" y1="130" x2="1262" y2="130" stroke="#e2eaf3"/>
+
+  <text x="58" y="163" class="phase">01  安装与自检</text>
+  <rect x="58" y="178" width="370" height="145" rx="17" fill="#edf6ff" stroke="#a9cfff" stroke-width="1.5"/>
+  <rect x="58" y="178" width="7" height="145" rx="3" fill="#478ee8"/>
+  <text x="82" y="216" class="name">用户对智能体说“安装”</text>
+  <text x="82" y="251" class="line">从 GitHub 获取 skill 源码</text>
+  <text x="82" y="280" class="minor">放入个人 Codex skills 目录</text>
+  <path d="M436 250 H463" stroke="#607794" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="475" y="178" width="370" height="145" rx="17" fill="#f0efff" stroke="#c8c4fa" stroke-width="1.5"/>
+  <rect x="475" y="178" width="7" height="145" rx="3" fill="#8275db"/>
+  <text x="499" y="216" class="name">SKILL.md + invoke.ps1</text>
+  <text x="499" y="251" class="line">setup.ps1 安装固定版本依赖</text>
+  <text x="499" y="280" class="minor">doctor.py 校验环境与上游源码</text>
+  <path d="M853 250 H880" stroke="#607794" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="892" y="178" width="370" height="145" rx="17" fill="#ecf8f2" stroke="#a8dec1" stroke-width="1.5"/>
+  <rect x="892" y="178" width="7" height="145" rx="3" fill="#36a772"/>
+  <text x="916" y="216" class="name">依赖就绪</text>
+  <text x="916" y="251" class="line">用户本机 Python 3.12 环境</text>
+  <text x="916" y="280" class="minor">自检不读取微信聊天</text>
+
+  <text x="58" y="343" class="phase">02  列出可读会话</text>
+  <rect x="58" y="358" width="370" height="145" rx="17" fill="#edf6ff" stroke="#a9cfff" stroke-width="1.5"/>
+  <rect x="58" y="358" width="7" height="145" rx="3" fill="#478ee8"/>
+  <text x="82" y="396" class="name">用户确认读取列表</text>
+  <text x="82" y="431" class="line">这是第一次、独立的授权</text>
+  <text x="82" y="460" class="minor">尚未导出任何消息</text>
+  <path d="M436 430 H463" stroke="#607794" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="475" y="358" width="370" height="145" rx="17" fill="#f0efff" stroke="#c8c4fa" stroke-width="1.5"/>
+  <rect x="475" y="358" width="7" height="145" rx="3" fill="#8275db"/>
+  <text x="499" y="396" class="name">list_chats.py</text>
+  <text x="499" y="431" class="line">discover_data.py 查找数据目录</text>
+  <text x="499" y="460" class="minor">process_access.py + exporter_core.py</text>
+  <path d="M853 430 H880" stroke="#607794" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="892" y="358" width="370" height="145" rx="17" fill="#ecf8f2" stroke="#a8dec1" stroke-width="1.5"/>
+  <rect x="892" y="358" width="7" height="145" rx="3" fill="#36a772"/>
+  <text x="916" y="396" class="name">私聊 / 群聊列表</text>
+  <text x="916" y="431" class="line">名称、唯一 ID、最近时间</text>
+  <text x="916" y="460" class="minor">仅显示元数据，不展示正文</text>
+
+  <text x="58" y="523" class="phase">03  单会话导出</text>
+  <rect x="58" y="538" width="370" height="145" rx="17" fill="#edf6ff" stroke="#a9cfff" stroke-width="1.5"/>
+  <rect x="58" y="538" width="7" height="145" rx="3" fill="#478ee8"/>
+  <text x="82" y="576" class="name">选一个会话和保存目录</text>
+  <text x="82" y="611" class="line">展示计划后再次确认导出</text>
+  <text x="82" y="640" class="minor">列表授权不等于导出授权</text>
+  <path d="M436 610 H463" stroke="#607794" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="475" y="538" width="370" height="145" rx="17" fill="#f0efff" stroke="#c8c4fa" stroke-width="1.5"/>
+  <rect x="475" y="538" width="7" height="145" rx="3" fill="#8275db"/>
+  <text x="499" y="576" class="name">export_one.py</text>
+  <text x="499" y="611" class="line">exporter_core.py 读取选定会话</text>
+  <text x="499" y="640" class="minor">本机进程密钥、数据库与缓存媒体</text>
+  <path d="M853 610 H880" stroke="#607794" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="892" y="538" width="370" height="145" rx="17" fill="#ecf8f2" stroke="#a8dec1" stroke-width="1.5"/>
+  <rect x="892" y="538" width="7" height="145" rx="3" fill="#36a772"/>
+  <text x="916" y="576" class="name">指定目录中的独立子目录</text>
+  <text x="916" y="611" class="line">TXT · Markdown · JSON</text>
+  <text x="916" y="640" class="minor">另附本机已缓存媒体（可选）</text>
+
+  <rect x="58" y="716" width="1204" height="67" rx="14" fill="#fff6e8" stroke="#f3dfbc"/>
+  <text x="80" y="746" class="foot" font-weight="700">数据边界</text>
+  <text x="176" y="746" class="foot">微信进程与数据库只在用户本机读取；导出文件保存在用户指定的本机目录。</text>
+  <text x="80" y="771" class="minor">不批量导出 · 不自动分析或上传聊天 · 临时解密数据尽力清理（不保证安全擦除）</text>
+</svg>

@@ -2,13 +2,15 @@
 
 在 64 位 Windows 本机发现微信数据，列出有本地消息表的私聊和群聊；分别确认后，仅将选定的一个会话导出为 TXT、Markdown、JSON 和本机已缓存的媒体。**不会自动分析、批量导出或上传聊天内容。**
 
-## 安装与依赖
+![wechat-export-fresh Skill 工作框架：安装与自检、列出会话、单会话导出](assets/skill-architecture.svg)
 
-将整个目录放入个人 Codex skills 目录，保持目录名 `wechat-export-fresh`。本仓库**只有源码，不包含 Python 解释器或 PyInstaller 运行目录**。电脑需要已安装 64 位 Python 3.12，并可通过 pip 访问依赖源。首次调用 `invoke.ps1` 会在用户本机的 `%LOCALAPPDATA%\wechat-chat-export\venv312` 创建独立环境，并按 `requirements.txt` 安装固定版本的后端；该步骤需要网络，但不读取微信数据。可以先显式运行 `scripts/setup.ps1`。
+## 一句话安装（Codex）
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\scripts\invoke.ps1' doctor
-```
+在能够访问 GitHub、安装本地 Codex skills 的智能体对话中，直接说：
+
+> 请帮我安装这个 Codex skill：https://github.com/niouoklul/wechat-chat-export 。`SKILL.md` 在仓库根目录，技能名称是 `wechat-export-fresh`。安装后运行 `doctor` 自检并告诉我结果；如果已有同名技能，请先问我再覆盖。
+
+由智能体下载并放入个人 skills 目录即可，不必手动复制文件。**但安装不等于免环境配置**：运行聊天列表与导出需要 64 位 Windows、已安装的 64 位 Python 3.12，以及首次通过 pip 安装依赖时的网络连接。缺少条件时，智能体应说明缺什么，而不是声称安装完成即可导出。安装完成后可在下一轮对话使用 `$wechat-export-fresh`。
 
 `doctor` 检查依赖和脚本入口，不读取微信消息或进程。以后通过 `$wechat-export-fresh` 请求列出会话或导出，模型会分别询问列表授权、目标及输出位置、导出授权。参见 [使用说明](references/usage.md)。
 
